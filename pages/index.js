@@ -30,6 +30,9 @@ export default function DashboardPage() {
     return (
       <div className="fixed inset-0 flex items-center justify-center bg-white z-50">
         <Loader2 className="h-16 w-16 animate-spin text-blue-600" />
+        <p className="mt-4 text-lg text-gray-700">
+          Please wait page is Loading...
+        </p>
       </div>
     );
   }
