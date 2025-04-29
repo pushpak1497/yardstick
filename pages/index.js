@@ -5,18 +5,34 @@ import MonthlyBarChart from "@/components/BarChart";
 import CategoryPieChart from "@/components/PieChart";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Loader2 } from "lucide-react";
 
 export default function DashboardPage() {
   const [transactions, setTransactions] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {
-    const data = await getTransactions();
-    setTransactions(data);
+    try {
+      const data = await getTransactions();
+      setTransactions(data);
+    } catch (error) {
+      console.error("Error fetching transactions:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-white z-50">
+        <Loader2 className="h-16 w-16 animate-spin text-blue-600" />
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto p-6 space-y-8">
